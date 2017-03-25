@@ -92,12 +92,11 @@ local function get_playercolour(pname)
 	for i = 1,#pname do
 		data = data + pname:byte(i)
 	end
-	print(data)
-	local ro = data % pcoloff
-	data = math.floor(data / pcoloff)
-	local go = data % pcoloff
-	data = math.floor(data / pcoloff)
-	local bo = data % pcoloff
+	-- need PseudoRandom here
+	math.randomseed(data)
+	local ro = math.random(0, pcoloff)
+	local go = math.random(0, pcoloff)
+	local bo = math.random(0, pcoloff)
 	local col = "#" .. tohex(255 - ro) .. tohex(255 - go) .. tohex(255 - bo)
 	playercolours[pname] = col
 	return col
