@@ -1,0 +1,15 @@
+#    This is the hility used when not explicitly specified ("nil").
+#    It can be readjusted ingame.
+chatfocus.default_hility (default highlight type) string default
+
+#    This is used for colouring messages where you're mentioned in chat.
+chatfocus.mentioncolour_chat (mention colour in chat) string #ff2a00
+
+#    This is used for colouring messages where you're mentioned in terminal.
+#    The ESC character is used for colouring.
+chatfocus.mentioncolour_term (mention colour in terminal) int 91 1
+
+#    Too small values exacerbates differentiating between players and
+#    too big values exacerbates differentiating between message importance.
+#    It's used for hility "default".
+chatfocus.player_colour_variety (player colour variety) int 50 1 255
