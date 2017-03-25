@@ -11,10 +11,8 @@ grey: like dark-grey but brighter
 default: like dark-grey but the player's colour
 important: show every message as if you were mentioned
 nil: remove the player from the list of specified priorities
-* You can also change which priority is given when not explicitly specified.
-* Of course, tab autocompletion is available that you don't have to type so much (l need to make https://github.com/minetest/minetest/pull/4437 client side)
+* You can also change which priority is given when not explicitly specified using the ```chatcolour``` chatcommand.
+* Of course, tab autocompletion is available that you don't have to type so much (I need to make https://github.com/minetest/minetest/pull/4437 client side)
 
 TODO:
 * tab autocompletion
-* chatcommand
-* implement get_playercolour
