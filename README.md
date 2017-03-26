@@ -17,4 +17,3 @@ nil: remove the player from the list of specified priorities
 
 TODO:
 * tab autocompletion
-* ```*** <name> left the game.```, same for joined

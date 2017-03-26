@@ -85,6 +85,24 @@ local function get_playername(msg)
 		end
 		return name, textstart
 	end
+	if msg:sub(1, 4) == "*** " then
+		-- player leaving and joining
+		local name, left
+		if msg:sub(-15) == " left the game." then
+			name = msg:sub(5, -16)
+			left = true
+		elseif msg:sub(-17) == " joined the game." then
+			name = msg:sub(5, -18)
+		else
+			return
+		end
+		for p = 1,#name do
+			if not valid_pnamechar(name:sub(p, p)) then
+				return
+			end
+		end
+		return name, #name + 5, left
+	end
 end
 
 -- used for the colours
@@ -218,14 +236,17 @@ minetest.register_chatcommand("chatfocus", {
 	end
 })
 
+local known_pnames = {}
+
 -- called when a chatmessage is obtained
 local function handle_chatmsg(msg)
-	local pname = get_playername(msg)
+	local pname,_,left = get_playername(msg)
 	if not pname then
 		-- not emanating from a player
 		minetest.display_chat_message(msg)
 		return
 	end
+	known_pnames[pname] = not left
 	local mine = pname == I
 	local hility = playerdata[pname] or (mine and "grey") or default_hility
 	local tagged = not mine and msg:find(I)
