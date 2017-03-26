@@ -1,5 +1,6 @@
-This is a client side minetest mod.
-
+This is a client side minetest mod.  
+Your player name can't be detected automatically by the mod yet.  
+As workaround you need to type ```hello  ``` (hello and two spaces) in chat to make the mod know your name.
 
 * highlights a message if you are mentioned in it,
 * every player gets a different colour (near to white),

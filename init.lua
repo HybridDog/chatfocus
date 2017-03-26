@@ -1,18 +1,24 @@
 -- load settings
-		function minetest.setting_get ()end
-local I = minetest.setting_get"name"
-		I = "singleplayer"
-assert(type(I) == "string", "Could not detect my player name.")
-local default_hility = minetest.setting_get"chatfocus.default_hility"
-	or "default"
-local mentioncolour_chat = minetest.setting_get"chatfocus.mentioncolour_chat"
-	or "#ff2a00"
-local mentioncolour_term = minetest.setting_get"chatfocus.mentioncolour_term"
-	or "91"
-local pcolseed = minetest.setting_get"chatfocus.player_colour_seed"
-	or 19
-local pcoloff = minetest.setting_get"chatfocus.player_colour_variety"
-	or 50
+--~ local I = minetest.setting_get"name"
+--~ assert(type(I) == "string", "Could not detect my player name.")
+--~ local default_hility = minetest.setting_get"chatfocus.default_hility"
+	--~ or "default"
+--~ local mentioncolour_chat = minetest.setting_get"chatfocus.mentioncolour_chat"
+	--~ or "#ff2a00"
+--~ local mentioncolour_term = minetest.setting_get"chatfocus.mentioncolour_term"
+	--~ or "91"
+--~ local pcolseed = minetest.setting_get"chatfocus.player_colour_seed"
+	--~ or 19
+--~ local pcoloff = minetest.setting_get"chatfocus.player_colour_variety"
+	--~ or 50
+
+-- temporary solution because setting_get isn't available yet
+local default_hility = "default"
+local mentioncolour_chat = "#ff2a00"
+local mentioncolour_term = "91"
+local pcolseed = 19
+local pcoloff = 50
+local I = "¬" -- keep this "¬" for name detection
 
 -- tells whether a character can belong to a playername
 local function valid_pnamechar(c)
@@ -54,6 +60,11 @@ local function get_playername(msg)
 				return
 			end
 			name = name .. c
+		end
+		-- temporary solution to get my playername
+		if I == "¬"
+		and msg:sub(textstart, #msg) == "hello  " then
+			I = name
 		end
 		return name, textstart
 	end
