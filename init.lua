@@ -199,11 +199,35 @@ local hility_funcs = {
 	end,
 	important = show_mentioned,
 }
-local available_hilitys = {"nil"}
-for hility in pairs(hility_funcs) do
-	available_hilitys[#available_hilitys+1] = hility
+
+-- highlight type descriptions etc.
+local hility_info = {
+	{"stark-hide", "completely ignore every message emanating from the player"},
+	{"hide", "if you are mentioned, mark it as usual, else print the message" ..
+		" black in terminal"},
+	{"dark-grey", "print it dark-grey in terminal and chat (except mentions)"},
+	{"grey", "like dark-grey but brighter"},
+	{"default", "like dark-grey but the player's colour"},
+	{"important", "show every message as if you were mentioned"},
+	{"nil", "remove the player from the list of specified priorities"},
+}
+--~ local autoc_hility = {}
+local helptext =
+	"/chatfocus <playername> <hility>\n" ..
+	"The player name can also be ? to show the current hilitys\n" ..
+	"	or * to change the hility used when not specified.\n" ..
+	"hility (highlight type) can be one of following:\n"
+local leastlen = 0
+for i = 1,#hility_info do
+	--~ autoc_hility[i] = hility_info[i][1]
+	leastlen = math.max(leastlen, hility_info[i][1]:len() + 1)
 end
-available_hilitys = "higlhight types: " .. table.concat(available_hilitys, ", ")
+for i = 1,#hility_info do
+	helptext = helptext ..
+		hility_info[i][1] .. ":" ..
+		(" "):rep(leastlen - hility_info[i][1]:len()) ..
+		hility_info[i][2] .. "\n"
+end
 
 -- the command for configuring the highlight mode
 local playerdata = {}
@@ -211,7 +235,7 @@ minetest.register_chatcommand("chatfocus", {
 	func = function(param)
 		local fs = param:find" "
 		if not fs then
-			return false, "/chatfocus <playername> <hility>"
+			return false, helptext
 		end
 		local pname = param:sub(1, fs-1)
 		local hility = param:sub(fs+1):trim()
